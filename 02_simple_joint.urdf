@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<robot name="visual">
+    <!-- Định nghĩa vật liệu -->
+    <material name="blue">
+        <color rgba="0.0 0.0 0.8 1.0"/> <!-- Alpha phải là 1.0 thay vì 0.0 để vật liệu có thể hiển thị -->
+    </material>
+    <material name="white">
+        <color rgba="1 1 1 1"/>
+    </material>
+
+    <!-- Link gốc (base_link) -->
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.2" length="0.6"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+    </link>
+
+    <!-- Link chân phải (right_leg) -->
+    <link name="right_leg">
+        <visual>
+            <geometry>
+                <box size="0.6 0.1 0.2"/>
+            </geometry>
+        <!--rotate 90 deg about y axis, then shift down
+            by 0.3 m-->
+            <origin rpy="0.0 1.57075 0.0" xyz="0 0 -0.3"/>
+            <material name="white"/>
+        </visual>
+    </link>
+
+    <!-- Khớp nối giữa base_link và right_leg -->
+    <joint name="base_to_right_leg" type="continuous">
+        <axis xyz="0 1 0"/>
+        <parent link="base_link"/>
+        <child link="right_leg"/>
+        <origin xyz="0.0 -0.22 0.25"/>        
+    </joint>
+</robot>
+<!-- Run simulation:
+ros2 launch urdf_tutorial display.launch.py model:=$HOME/urdf_tutorial/urdf/02_simple_joint.urdf
+-->
