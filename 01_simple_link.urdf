@@ -1,0 +1,38 @@
+<robot name="materials">
+    <material name="blue">
+        <color rgba="0.0 0.0 0.8 1"/>
+    </material>
+
+    <!-- Dummy link (world) để tránh lỗi inertia -->
+    <link name="world"/>
+
+    <joint name="base_joint" type="fixed">
+        <parent link="world"/>
+        <child link="base_link"/>
+    </joint>
+
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.2" length="0.6"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            <material name="blue"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <cylinder radius="0.2" length="0.6"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0 0 0"/>
+        </collision>
+
+        <inertial>
+            <mass value="10"/>
+            <inertia ixx="1e-3" ixy="0.0" ixz="0.0" iyy="1e-3" iyz="0.0" izz="1e-3"/>
+        </inertial>
+    </link>
+</robot>
+<!--Run Simulation:
+ros2 launch urdf_tutorial display.launch.py model:=$HOME/urdf_tutorial/urdf/01_simple_link.urdf
+ -->
